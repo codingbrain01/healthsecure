@@ -1,11 +1,8 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-const navigate = useNavigate();
   return (
     <main className="bg-gradient-to-b from-blue-50 to-white">
-
-      
 
       {/* HERO */}
       <section className="py-16 md:py-20">
@@ -23,13 +20,11 @@ const navigate = useNavigate();
             </p>
 
             <div className="flex gap-3 md:gap-4">
-
               <Link
                 to=""
-                onClick={() => navigate("/frame")}
-                className="border border-blue-600 text-blue-600 px-6 md:px-8 py-2.5 md:py-3 rounded-lg hover:bg-blue-50 transition"
+                className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
               >
-                Get Starteed
+                Get Started
               </Link>
 
               <Link
