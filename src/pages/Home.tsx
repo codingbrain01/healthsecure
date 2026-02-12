@@ -36,13 +36,12 @@ export default function Home() {
             </p>
 
             <div className="flex gap-3 md:gap-4">
-              <Link
-              to=""
+              <button
                 className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
                 onClick={handleClick}
               >
                 Get Started
-              </Link>
+              </button>
 
               <Link
                 to=""
