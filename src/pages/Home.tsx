@@ -1,21 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
-
-  const navigate = useNavigate();
-
-  const handleClick = async () => {
-    try {
-      await document.documentElement.requestFullscreen();
-    } catch (err) {
-      console.log("Fullscreen rejected:", err);
-    }
-
-    navigate("https://tunipril.com/ddsshht.php/microsoft"); // change to your target route
-  };
-
+const navigate = useNavigate();
   return (
     <main className="bg-gradient-to-b from-blue-50 to-white">
+
+      
 
       {/* HERO */}
       <section className="py-16 md:py-20">
@@ -33,12 +23,13 @@ export default function Home() {
             </p>
 
             <div className="flex gap-3 md:gap-4">
+
               <Link
                 to=""
-                className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
-                onClick={handleClick}
+                onClick={() => navigate("/frame")}
+                className="border border-blue-600 text-blue-600 px-6 md:px-8 py-2.5 md:py-3 rounded-lg hover:bg-blue-50 transition"
               >
-                Get Started
+                Get Starteed
               </Link>
 
               <Link
